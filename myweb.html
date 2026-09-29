@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>云计算实验2 - 我的云页面</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Microsoft YaHei", Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .card {
+      width: 100%;
+      max-width: 680px;
+      background: rgba(255,255,255,0.95);
+      border-radius: 20px;
+      padding: 36px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+      text-align: center;
+    }
+    h1 { color: #333; margin-bottom: 8px; }
+    .subtitle { color: #666; margin-bottom: 24px; }
+    .info {
+      text-align: left;
+      background: #f5f7ff;
+      padding: 16px;
+      border-radius: 12px;
+      margin: 16px 0;
+    }
+    .info p { margin: 8px 0; }
+    button {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+      margin: 6px;
+    }
+    button:hover {
+      background: #5a6fd8;
+      transform: translateY(-2px);
+    }
+    #message {
+      margin-top: 16px;
+      color: #764ba2;
+      font-weight: bold;
+      min-height: 24px;
+    }
+    .footer {
+      margin-top: 24px;
+      font-size: 14px;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Hello, Cloud Web Server!</h1>
+    <p class="subtitle">云计算与分布式系统 实验2</p>
+
+    <div class="info">
+      <p><strong>姓名：</strong>王牧天</p>
+      <p><strong>学号：</strong>2631061077</p>
+      <p><strong>部署平台：</strong>GitHub Pages</p>
+      <p><strong>当前时间：</strong><span id="time"></span></p>
+      <p><strong>本站访问次数：</strong><span id="count">0</span> 次（本机统计）</p>
+    </div>
+
+    <button onclick="showMessage()">点我打招呼</button>
+    <button onclick="changeColor()">换个背景色</button>
+
+    <p id="message"></p>
+
+    <div class="footer">
+      <p>这是一个部署在云端的静态页面。</p>
+    </div>
+  </div>
+
+  <script>
+    // 显示当前时间
+    function updateTime() {
+      const now = new Date();
+      document.getElementById('time').innerText = now.toLocaleString('zh-CN');
+    }
+    setInterval(updateTime, 1000);
+    updateTime();
+
+    // 按钮交互
+    function showMessage() {
+      document.getElementById('message').innerText = '欢迎访问我的云页面！实验成功！';
+    }
+
+    // 换背景色
+    function changeColor() {
+      const colors = [
+        'linear-gradient(135deg, #667eea, #764ba2)',
+        'linear-gradient(135deg, #f093fb, #f5576c)',
+        'linear-gradient(135deg, #4facfe, #00f2fe)',
+        'linear-gradient(135deg, #43e97b, #38f9d7)'
+      ];
+      const random = Math.floor(Math.random() * colors.length);
+      document.body.style.background = colors[random];
+    }
+
+    // 本机访问次数统计
+    let count = localStorage.getItem('visitCount');
+    if (count === null) {
+      count = 1;
+    } else {
+      count = parseInt(count) + 1;
+    }
+    localStorage.setItem('visitCount', count);
+    document.getElementById('count').innerText = count;
+  </script>
+</body>
+</html>
